@@ -34,6 +34,31 @@ gem 'jbuilder', '~> 2.5'
 gem 'slim-rails'
 
 gem 'react-rails', '~> 1.4.0'
+gem 'devise', '~> 4.2.0'
+# gem 'globalize', '~> 5.0.0'
+gem 'ruby-duration'
+
+# grape api
+gem 'grape', '~> 0.15.0'
+gem 'grape-entity', '~> 0.4.8'
+gem 'grape-swagger', '~> 0.20.1'
+gem 'grape-swagger-ui', github: 'dangnm/grape-swagger-ui'
+
+
+gem 'sidekiq', '~> 4.0.0'
+gem "sidekiq-cron", "~> 0.4.0"
+
+#Decorator
+gem 'draper'
+
+# Upload file
+gem 'carrierwave', '~> 0.11.0'
+gem "fog", '~> 1.33.0'
+gem 'rmagick', '~> 2.15.4'
+
+# Email css
+gem 'premailer-rails', "~> 1.9.1"
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -42,7 +67,11 @@ group :development, :test do
   gem "rspec"
   gem "rspec-rails", '~> 3.0'
   gem 'factory_girl_rails', "~> 4.5.0"
+  gem "faker", "~> 1.5.0" #For data bootstrap
   gem "jasmine"
+  #test emails
+  gem 'letter_opener_web', '~> 1.2.0'
+  gem 'timecop'
 end
 
 group :development do
@@ -56,3 +85,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# gem 'turnout', '~> 2.3.1' #Maintenance
+
