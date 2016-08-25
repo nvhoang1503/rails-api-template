@@ -21,7 +21,6 @@
 .ruby*
 config/database.*
 /config/application.yml
-config/tapsey*.pem
 .DS_Store
 .env
 .env.*
