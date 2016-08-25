@@ -19,7 +19,7 @@
 .ruby-gemset
 .ruby-version
 .ruby*
-config/database.*
+config/database.yml
 /config/application.yml
 .DS_Store
 .env
