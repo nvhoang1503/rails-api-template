@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title SATV
+    / link rel="icon" type="image/png" href="#{asset_path('favicon.png')}"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"
+
+
+    = stylesheet_link_tag    'application', media: 'all','data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
+    = favicon_link_tag 'common/favicon.ico'
+    = csrf_meta_tags
+
+  body.admin
+    = yield
+  = yield(:js)
+
+
+

@@ -48,14 +48,15 @@ gem 'grape', '~> 0.15.0'
 gem 'grape-entity', '~> 0.4.8'
 gem 'grape-swagger', '~> 0.20.1'
 gem 'grape-swagger-ui', github: 'dangnm/grape-swagger-ui'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
 
 gem 'sidekiq', '~> 4.0.0'
 gem "sidekiq-cron", "~> 0.4.0"
 
-
 # Upload file
 gem 'carrierwave', '~> 0.11.0'
+gem 'net-ssh', '~> 3.2.0'
 gem 'fog', '~> 1.38'
 gem 'rmagick', '~> 2.15.4'
 

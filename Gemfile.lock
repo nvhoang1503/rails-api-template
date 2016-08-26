@@ -311,6 +311,7 @@ GEM
     minitest (5.9.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
+    net-ssh (3.2.0)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -490,6 +491,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener_web (~> 1.2.0)
   listen (~> 3.0.5)
+  net-ssh (~> 3.2.0)
   pg
   premailer-rails (~> 1.9.1)
   puma (~> 3.0)
@@ -500,6 +502,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   ruby-duration
   sass-rails (~> 5.0)
+  semantic-ui-sass!
   sidekiq (~> 4.0.0)
   sidekiq-cron (~> 0.4.0)
   slim-rails
