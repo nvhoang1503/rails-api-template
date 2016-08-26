@@ -6,6 +6,13 @@ GIT
       railties (>= 3.1)
 
 GIT
+  remote: git://github.com/doabit/semantic-ui-sass.git
+  revision: 94b14c605c16fe433a0fe9e1fa5907f9a9604f4e
+  specs:
+    semantic-ui-sass (2.2.3.0)
+      sass (>= 3.2)
+
+GIT
   remote: https://github.com/globalize/globalize
   revision: ef6eb64b028fe41edcb97f2020ead90e9e124822
   branch: master
