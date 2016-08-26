@@ -5,6 +5,23 @@ GIT
     grape-swagger-ui (0.1.0)
       railties (>= 3.1)
 
+GIT
+  remote: git://github.com/doabit/semantic-ui-sass.git
+  revision: 94b14c605c16fe433a0fe9e1fa5907f9a9604f4e
+  specs:
+    semantic-ui-sass (2.2.3.0)
+      sass (>= 3.2)
+
+GIT
+  remote: git://github.com/rails/activemodel-serializers-xml.git
+  revision: 570ee7ed33d60e44ca1f3ccbec3d1fbf61d52cbf
+  specs:
+    activemodel-serializers-xml (1.0.1)
+      activemodel (> 5.x)
+      activerecord (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -271,6 +288,7 @@ GEM
     minitest (5.9.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
+    net-ssh (3.2.0)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -346,7 +364,7 @@ GEM
     rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
-    rspec-rails (3.5.1)
+    rspec-rails (3.5.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -425,6 +443,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel-serializers-xml!
   annotate
   byebug
   carrierwave (~> 0.11.0)
@@ -443,6 +462,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener_web (~> 1.2.0)
   listen (~> 3.0.5)
+  net-ssh (~> 3.2.0)
   pg
   premailer-rails (~> 1.9.1)
   puma (~> 3.0)
@@ -453,6 +473,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   ruby-duration
   sass-rails (~> 5.0)
+  semantic-ui-sass!
   sidekiq (~> 4.0.0)
   sidekiq-cron (~> 0.4.0)
   slim-rails
