@@ -35,8 +35,6 @@ gem 'slim-rails'
 
 gem 'react-rails', '~> 1.4.0'
 gem 'devise', '~> 4.2.0'
-# gem 'activemodel-serializers-xml' # it required for globalize in rail
-# gem 'globalize', '~> 5.0.0'
 gem 'ruby-duration'
 
 # Globalize 
