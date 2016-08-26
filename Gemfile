@@ -35,8 +35,13 @@ gem 'slim-rails'
 
 gem 'react-rails', '~> 1.4.0'
 gem 'devise', '~> 4.2.0'
+# gem 'activemodel-serializers-xml' # it required for globalize in rail
 # gem 'globalize', '~> 5.0.0'
 gem 'ruby-duration'
+
+# Globalize 
+gem 'globalize', git: 'https://github.com/globalize/globalize', branch: 'master'
+gem 'activemodel-serializers-xml'
 
 # grape api
 gem 'grape', '~> 0.15.0'
@@ -48,12 +53,10 @@ gem 'grape-swagger-ui', github: 'dangnm/grape-swagger-ui'
 gem 'sidekiq', '~> 4.0.0'
 gem "sidekiq-cron", "~> 0.4.0"
 
-#Decorator
-gem 'draper'
 
 # Upload file
 gem 'carrierwave', '~> 0.11.0'
-gem "fog", '~> 1.33.0'
+gem 'fog', '~> 1.38'
 gem 'rmagick', '~> 2.15.4'
 
 # Email css
@@ -72,6 +75,7 @@ group :development, :test do
   #test emails
   gem 'letter_opener_web', '~> 1.2.0'
   gem 'timecop'
+  # gem 'rails-perftest', :github => 'rails/rails-perftest'
 end
 
 group :development do
