@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title SATV
+    title SATV Admin
     / link rel="icon" type="image/png" href="#{asset_path('favicon.png')}"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
     meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"
@@ -12,9 +12,8 @@ html
     = favicon_link_tag 'common/favicon.ico'
     = csrf_meta_tags
 
-  body
+  body.admin
     = yield
   = yield(:js)
-
 
 
