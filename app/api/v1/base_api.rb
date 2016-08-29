@@ -13,12 +13,11 @@ module API
         end
       end
 
-      # mount API::V2::Customers
       mount API::V1::ExamplesApi
 
       add_swagger_documentation(
         info: {
-          title: "Tapsey API v1"
+          title: "SAtv API v1"
         },
         api_version: 'v1', 
         base_path: '/api/v1',

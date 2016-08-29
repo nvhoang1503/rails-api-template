@@ -1,18 +1,17 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'home/index'
-  end
+  mount API::Root => '/'
+
 
   root 'home#index'
   get 'home/index'
+  get 'apidoc', to: "application#apidoc"
 
+
+  devise_for :users
+  
   namespace :admin do
+    get 'home/index'
     root :to => "home#index"
   end
 
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
-  get 'apidoc', to: "application#apidoc"
-  
 end

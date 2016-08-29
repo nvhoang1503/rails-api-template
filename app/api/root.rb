@@ -26,22 +26,22 @@ module API
 
     before do
       #Maintenance mode
-      if !Turnout::MaintenanceFile.find.nil?
-        error!({
-          "status": 403,
-          "message": I18n.t('errors.messages.maintenance')
-        }, 200)
-      end
+      # if !Turnout::MaintenanceFile.find.nil?
+      #   error!({
+      #     "status": 403,
+      #     "message": I18n.t('errors.messages.maintenance')
+      #   }, 200)
+      # end
 
-      if Rails.env.staging? || Rails.env.development? || Rails.env.test?
-        Rails.logger.info "[API][CALL][#{request.ip}][START] #{request.url}" 
-      end
+      # if Rails.env.staging? || Rails.env.development? || Rails.env.test?
+      #   Rails.logger.info "[API][CALL][#{request.ip}][START] #{request.url}" 
+      # end
 
-      if Rails.env.development?
-        # require 'rbtrace'
-        # pid = Process.pid
-        # system("rbtrace -p #{pid} -e \"load '#{Rails.root}/memory_tools/memory_trace_start.rb'\" ")
-      end
+      # if Rails.env.development?
+      #   # require 'rbtrace'
+      #   # pid = Process.pid
+      #   # system("rbtrace -p #{pid} -e \"load '#{Rails.root}/memory_tools/memory_trace_start.rb'\" ")
+      # end
 
       # set_locale
       set_access_token
@@ -77,7 +77,7 @@ module API
       end
 
       def current_user
-        @user ||= User.authorize params
+        # @user ||= User.authorize params
       end
 
       def my_params
@@ -101,39 +101,39 @@ module API
 
 
       def device_tracking
-        country_code = AppSettings.new(request: request).current_country_code
-        if (headers['Device-Token'] || headers['Device-Id']) && current_user
-          current_user.update_device_info(
-            DeviceInfo.new({
-              device_type: headers['Device-Type'],
-              device_name: headers['Device-Name'],
-              device_id: headers['Device-Id'],
-              device_token: headers['Device-Token'],
-              os_version: headers['Os-Version'],
-              screen_dpi: headers['Screen-Dpi'],
-              app_version: headers['App-Version'],
-              app_name: headers['App-Name'],
-              language: headers['Accept-Language'],
-              country_code: country_code
-            })
-          )
-        else
-          device_info = DeviceInfo.where(device_id: headers['Device-Id']).anonymous.first || DeviceInfo.new()
-          device_info.update_attributes!(
-            device_type: headers['Device-Type'],
-            device_name: headers['Device-Name'],
-            device_id: headers['Device-Id'],
-            device_token: headers['Device-Token'],
-            os_version: headers['Os-Version'],
-            screen_dpi: headers['Screen-Dpi'],
-            app_version: headers['App-Version'],
-            app_name: headers['App-Name'],
-            language: headers['Accept-Language'],
-            country_code: country_code
-          )
+        # country_code = AppSettings.new(request: request).current_country_code
+        # if (headers['Device-Token'] || headers['Device-Id']) && current_user
+        #   current_user.update_device_info(
+        #     DeviceInfo.new({
+        #       device_type: headers['Device-Type'],
+        #       device_name: headers['Device-Name'],
+        #       device_id: headers['Device-Id'],
+        #       device_token: headers['Device-Token'],
+        #       os_version: headers['Os-Version'],
+        #       screen_dpi: headers['Screen-Dpi'],
+        #       app_version: headers['App-Version'],
+        #       app_name: headers['App-Name'],
+        #       language: headers['Accept-Language'],
+        #       country_code: country_code
+        #     })
+        #   )
+        # else
+        #   device_info = DeviceInfo.where(device_id: headers['Device-Id']).anonymous.first || DeviceInfo.new()
+        #   device_info.update_attributes!(
+        #     device_type: headers['Device-Type'],
+        #     device_name: headers['Device-Name'],
+        #     device_id: headers['Device-Id'],
+        #     device_token: headers['Device-Token'],
+        #     os_version: headers['Os-Version'],
+        #     screen_dpi: headers['Screen-Dpi'],
+        #     app_version: headers['App-Version'],
+        #     app_name: headers['App-Name'],
+        #     language: headers['Accept-Language'],
+        #     country_code: country_code
+        #   )
 
-          device_info.save
-        end
+        #   device_info.save
+        # end
       end
 
       def set_access_token
