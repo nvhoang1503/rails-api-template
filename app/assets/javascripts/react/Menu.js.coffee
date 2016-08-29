@@ -2,7 +2,19 @@
 
 window.Menu = React.createClass
   getInitialState: ->
-    items: []
+    {
+      user_session: {}
+    }
+
+  componentWillMount: ->
+    MenuStore.listen(@onChange)
+    MenuActions.initData(@props)
+
+  componentWillUnmount: ->
+    MenuStore.unlisten(@onChange)
+
+  onChange: (state)->
+    @setState(state)
 
   componentDidMount: ->
     menuTag = $(this.refs.menu)
@@ -11,8 +23,7 @@ window.Menu = React.createClass
   render: ->
     div className: 'ui menu', ref: 'menu',
       a className: 'item', 'Test 1'
-      div className: 'ui dropdown item', tabIndex: '0', 'Test 2',
+      div className: 'ui dropdown item right', tabIndex: '0', 'Account',
         i className: 'dropdown icon'
         div className: 'menu transition hidden', tabIndex: '-1',
-          a className: 'item', 'Test 3'
-          a className: 'item', 'Test 4'
+          a className: 'item', href: '#', 'Sign out'
