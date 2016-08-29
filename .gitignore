@@ -37,3 +37,5 @@ coverage
 # Ignore IDEA
 .idea
 vendor/cache
+# Ignore application configuration
+/config/application.yml
