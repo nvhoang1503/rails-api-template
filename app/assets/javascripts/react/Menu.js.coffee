@@ -26,4 +26,4 @@ window.Menu = React.createClass
       div className: 'ui dropdown item right', tabIndex: '0', 'Account',
         i className: 'dropdown icon'
         div className: 'menu transition hidden', tabIndex: '-1',
-          a className: 'item', href: '#', 'Sign out'
+          a className: 'item', href: Routes.destroy_admin_session_path(), 'data-method': 'delete', 'Sign out'
