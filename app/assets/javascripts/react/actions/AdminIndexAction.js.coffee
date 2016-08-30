@@ -1,7 +1,9 @@
 class AdminIndexActions
   constructor: ->
     @generateActions(
-      'initData'
+      'initData',
+      'updateAdmins',
+      'updatePageInfo'
     )
 
 window.AdminIndexActions = alt.createActions(AdminIndexActions)

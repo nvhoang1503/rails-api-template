@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'admins/index'
+  end
+
+  namespace :admin do
+    get 'admins/admins'
+  end
+
   mount API::Root => '/'
 
   devise_for :users
@@ -13,6 +21,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'home/index'
     root :to => "home#index"
+    resources :admins do
+    end
   end
 
 end

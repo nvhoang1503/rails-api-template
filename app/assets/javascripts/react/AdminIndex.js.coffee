@@ -3,7 +3,8 @@
 window.AdminIndex = React.createClass
   getInitialState: ->
     {
-      admins: []
+      admins: [],
+      pageInfo: {}
     }
 
   componentWillMount: ->
@@ -15,6 +16,10 @@ window.AdminIndex = React.createClass
 
   onChange: (state)->
     @setState(state)
+
+  onPageChanged: (data)->
+    adminService = new SATV.Admin.AdminsService
+    adminService.fetchAdmins(data.currentPage)
 
   render: ->
     table className: 'ui celled table',
@@ -32,9 +37,7 @@ window.AdminIndex = React.createClass
       tfoot {},
         tr {},
           th colSpan: '3',
-            Pager({onPageChanged: (data)->
-              alert(data.currentPage)
-            })
+            Pager($.extend({}, @state.pageInfo, {onPageChanged: @onPageChanged}))
 
 window.Pager = React.createFactory React.createClass
   getDefaultProps: ->
@@ -45,10 +48,10 @@ window.Pager = React.createFactory React.createClass
     }
 
   totalSegments: ->
-    Math.ceil(@props.totalPages / @props.windowSize)
+    Math.ceil(parseFloat(@props.totalPages) / parseFloat(@props.windowSize))
 
   currentSegment: ->
-    Math.ceil(@props.currentPage / @props.windowSize)
+    Math.ceil(parseFloat(@props.currentPage) / parseFloat(@props.windowSize))
 
   isFirstSegment: ->
     if @currentSegment() == 1
@@ -61,22 +64,23 @@ window.Pager = React.createFactory React.createClass
     return true
 
   minWindow: ->
-    (@currentSegment() - 1) * @props.windowSize + 1
+    (@currentSegment() - 1) * parseInt(@props.windowSize) + 1
 
   maxWindow: ->
     if !@isLastSegment()
-      return @currentSegment() * @props.windowSize
+      return @currentSegment() * parseInt(@props.windowSize)
     return @props.totalPages
 
   isActivePage: (page) ->
-    if page == @props.currentPage
+    if parseInt(page) == parseInt(@props.currentPage)
       return true
     return false
 
   handleClick: (e) ->
-    nextCurrentPage = $(e.target).data('page')
-    if (typeof @props.onPageChanged != 'undefined')
-      @props.onPageChanged({currentPage: nextCurrentPage})
+    if (typeof $(e.target).data('page') != 'undefined')
+      nextCurrentPage = parseInt($(e.target).data('page'))
+      if (typeof @props.onPageChanged != 'undefined')
+        @props.onPageChanged({currentPage: nextCurrentPage})
 
   render: ->
     div className: 'ui right floated pagination menu',
