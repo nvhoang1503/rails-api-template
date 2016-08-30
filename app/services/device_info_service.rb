@@ -1,8 +1,12 @@
 class DeviceInfoService < BaseService
 
-  def initialize(device_info, params = {})
-    @device_info = device_info
-    @params = params
+  # def initialize(device_info, params = {})
+  #   @device_info = device_info
+  #   @params = params
+  # end
+
+  def self.anonymize(params, headers)
+    DeviceInfo.anonymize(params, headers)
   end
 
   # def anonymize
@@ -17,6 +21,6 @@ class DeviceInfoService < BaseService
   #   SecureRandom.hex(50)
   # end
 
-  
+
 
 end

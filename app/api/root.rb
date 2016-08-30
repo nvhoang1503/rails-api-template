@@ -47,14 +47,14 @@ module API
       end
 
       def set_locale
-        I18n.locale = params[:lang] || headers['Locale'] || header_locale(headers['Accept-Language']) || I18n.default_locale
+        I18n.locale = params[:lang] || header_locale(headers['Accept-Language']) || I18n.default_locale
         # current_device_info.update(locale: I18n.locale) if current_device_info && current_device_info.locale != I18n.locale
       end
 
 
       # def user_authenticate!
       def device_info_authenticate!
-        error!({:status  => 401, :message => "User Authorization"}, 201) unless current_device_info
+        error!({:status  => 401, :message => "Device Authorization"}, 201) unless current_device_info
       end
 
       # def current_user

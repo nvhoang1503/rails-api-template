@@ -14,6 +14,7 @@ module API
       end
 
       mount API::V1::ExamplesApi
+      mount API::V1::DeviceInfosApi
 
       add_swagger_documentation(
         info: {

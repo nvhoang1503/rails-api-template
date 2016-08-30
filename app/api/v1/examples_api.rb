@@ -1,6 +1,5 @@
 module API
   module V1
-    # class ExamplesApi < Grape::API
     class ExamplesApi < API::V1::BaseApi
       
       resource :examples do 
@@ -15,7 +14,7 @@ module API
 
         get do
           examples = Example.all
-          API::Entities::V1::ExampleEntity.represent(examples).merge(status: 200, message: "Create example successful !")
+          API::Entities::V1::ExampleEntity.represent(examples).merge(status: 200, message: "List of examples !")
         end
 
 
@@ -37,18 +36,20 @@ module API
 
         get ":id" do
           example = Example.find_by_id(params[:id]) 
-          API::Entities::V1::ExampleEntity.represent(example).merge(status: 200, message: "Create example successful !")
+          API::Entities::V1::ExampleEntity.represent(example).merge(status: 200, message: "Example details !")
         end 
 
 
         # api create new example
         desc "Create example"
         params do
+          requires :authentication_token, type: String, desc: 'Device authentication token'
           requires :name, type: String, desc: 'Name of Example'
           optional :content, type: String, desc: 'Content of Example '
         end
 
         post do
+          device_info_authenticate!
           example = Example.new my_permitted_params
           if example.save
             API::Entities::V1::ExampleEntity.represent(example).merge(status: 200, message: "Create example successful !")
@@ -64,11 +65,13 @@ module API
         # edit example
         desc "Edit an example"
         params do
+          requires :authentication_token, type: String, desc: 'Device authentication token'
           requires :id, type: Integer, desc: 'ID of Example'
           requires :name, type: String, desc: 'Name of Example '
           optional :content, type: String, desc: 'Content of Example'
         end
         put ":id" do
+          device_info_authenticate!
           example = Example.find_by_id(params[:id])
           if example.update(my_permitted_params)
             API::Entities::V1::ExampleEntity.represent(example).merge(status: 200, message: "Update example successful !")
