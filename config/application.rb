@@ -14,5 +14,6 @@ module SatvBackend
 
     config.autoload_paths += Dir["#{Rails.root}/app"]
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

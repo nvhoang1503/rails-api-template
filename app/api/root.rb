@@ -25,28 +25,8 @@ module API
     
 
     before do
-      #Maintenance mode
-      # if !Turnout::MaintenanceFile.find.nil?
-      #   error!({
-      #     "status": 403,
-      #     "message": I18n.t('errors.messages.maintenance')
-      #   }, 200)
-      # end
-
-      # if Rails.env.staging? || Rails.env.development? || Rails.env.test?
-      #   Rails.logger.info "[API][CALL][#{request.ip}][START] #{request.url}" 
-      # end
-
-      # if Rails.env.development?
-      #   # require 'rbtrace'
-      #   # pid = Process.pid
-      #   # system("rbtrace -p #{pid} -e \"load '#{Rails.root}/memory_tools/memory_trace_start.rb'\" ")
-      # end
-
-      # set_locale
-      set_access_token
       set_locale
-      device_tracking
+      devive_authenticate
     end
 
     after do
@@ -68,16 +48,18 @@ module API
 
       def set_locale
         I18n.locale = params[:lang] || headers['Locale'] || header_locale(headers['Accept-Language']) || I18n.default_locale
-        current_user.update(locale: I18n.locale) if current_user && current_user.locale != I18n.locale
+        # current_device_info.update(locale: I18n.locale) if current_device_info && current_device_info.locale != I18n.locale
       end
 
 
-      def user_authenticate!
-        error!({:status  => 401, :message => "User Authorization"}, 201) unless current_user
+      # def user_authenticate!
+      def device_info_authenticate!
+        error!({:status  => 401, :message => "User Authorization"}, 201) unless current_device_info
       end
 
-      def current_user
-        # @user ||= User.authorize params
+      # def current_user
+      def current_device_info
+        @device_info ||= DeviceInfo.authorize params
       end
 
       def my_params
@@ -99,45 +81,24 @@ module API
         end
       end
 
+      def is_valid_device
+        if (headers['Device-Id'].present? && headers['Device-Token'].present? && headers['Device-Type'].present? && headers['Accept-Language'].present?)
+          true
+        else
+          error!({:status  => 401, :message => "User Authorization"}, 201)
+        end
+      end
 
-      def device_tracking
-        # country_code = AppSettings.new(request: request).current_country_code
-        # if (headers['Device-Token'] || headers['Device-Id']) && current_user
-        #   current_user.update_device_info(
-        #     DeviceInfo.new({
-        #       device_type: headers['Device-Type'],
-        #       device_name: headers['Device-Name'],
-        #       device_id: headers['Device-Id'],
-        #       device_token: headers['Device-Token'],
-        #       os_version: headers['Os-Version'],
-        #       screen_dpi: headers['Screen-Dpi'],
-        #       app_version: headers['App-Version'],
-        #       app_name: headers['App-Name'],
-        #       language: headers['Accept-Language'],
-        #       country_code: country_code
-        #     })
-        #   )
-        # else
-        #   device_info = DeviceInfo.where(device_id: headers['Device-Id']).anonymous.first || DeviceInfo.new()
-        #   device_info.update_attributes!(
-        #     device_type: headers['Device-Type'],
-        #     device_name: headers['Device-Name'],
-        #     device_id: headers['Device-Id'],
-        #     device_token: headers['Device-Token'],
-        #     os_version: headers['Os-Version'],
-        #     screen_dpi: headers['Screen-Dpi'],
-        #     app_version: headers['App-Version'],
-        #     app_name: headers['App-Name'],
-        #     language: headers['Accept-Language'],
-        #     country_code: country_code
-        #   )
-
-        #   device_info.save
-        # end
+      def devive_authenticate
+        if set_access_token
+          current_device_info
+        else
+          nil
+        end
       end
 
       def set_access_token
-        params[:authentication_token] ||= params[:api_key] ||= headers['Authorization']  # Should be headers['Authorization']
+        params[:authentication_token] ||= headers['Authorization']  # Should be headers['Authorization']
       end
 
     end
