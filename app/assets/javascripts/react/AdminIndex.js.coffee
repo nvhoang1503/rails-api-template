@@ -32,7 +32,9 @@ window.AdminIndex = React.createClass
       tfoot {},
         tr {},
           th colSpan: '3',
-            Pager()
+            Pager({onPageChanged: (data)->
+              alert(data.currentPage)
+            })
 
 window.Pager = React.createFactory React.createClass
   getDefaultProps: ->
@@ -71,18 +73,23 @@ window.Pager = React.createFactory React.createClass
       return true
     return false
 
+  handleClick: (e) ->
+    nextCurrentPage = $(e.target).data('page')
+    if (typeof @props.onPageChanged != 'undefined')
+      @props.onPageChanged({currentPage: nextCurrentPage})
+
   render: ->
     div className: 'ui right floated pagination menu',
-      a className: 'icon item item__first-page-btn',
-       i className: 'left chevron icon'
+      a className: 'icon item item__first-page-btn', 'data-page': 1, key: 'first-page-1', onClick: @handleClick,
+       i className: 'left step backward icon'
       if !@isFirstSegment()
-        a className: 'item item__previous-segment-btn', key: 'previous-segment', '...' 
+        a className: 'item item__previous-segment-btn', 'data-page': @minWindow() - 1, key: 'previous-segment-'+ (@minWindow() - 1), onClick: @handleClick, '...' 
       _.map _.range(@minWindow(), @maxWindow() + 1), (index) =>
         if @isActivePage(index)
-          a className: 'item active item__page-btn'+' page-'+index, key: index, index
+          a className: 'item active item__page-btn'+' page-'+index, 'data-page': index, key: index, onClick: @handleClick, index
         else
-          a className: 'item item__page-btn'+' page-'+index, key: index, index
+          a className: 'item item__page-btn'+' page-'+index, 'data-page': index, key: index, onClick: @handleClick, index
       if !@isLastSegment()
-        a className: 'item item__next-segment-btn', key: 'next-segment', '...' 
-      a className: 'icon item item__last-page-btn',
-       i className: 'right chevron icon'
+        a className: 'item item__next-segment-btn', 'data-page': @maxWindow() + 1, key: 'next-segment-'+ (@maxWindow() + 1), onClick: @handleClick, '...' 
+      a className: 'icon item item__last-page-btn', 'data-page': @props.totalPages, key: 'last-page-'+ (@props.totalPages), onClick: @handleClick,
+       i className: 'right step forward icon'

@@ -1,7 +1,81 @@
 var TestUtils = React.addons.TestUtils;
 
-describe("Pager", function() {
+describe("Pager with total page is 11 and window size is 3", function() {
     var component;
+    describe("Page button is clicked", function() {
+        describe("Current page is 2 and button 3 is clicked", function() {
+            var value;
+            beforeEach(function(done) {
+                component = TestUtils.renderIntoDocument(
+                    Pager({
+                        totalPages: 11,
+                        currentPage: 2,
+                        windowSize: 3,
+                        onPageChanged: function(data) {
+                            value = data.currentPage
+                            done()
+                        }
+                    })
+                );
+                var c =  $(ReactDOM.findDOMNode(component))
+                TestUtils.Simulate.click(c.find('.page-3')[0]);
+            });
+
+            it("should have page changed callback called and return 3", function(done) {
+                expect(value).toBe(3);
+                done()
+            });
+        });
+
+        describe("Current page is 2 and first page button is clicked", function() {
+            var value;
+            beforeEach(function(done) {
+                component = TestUtils.renderIntoDocument(
+                    Pager({
+                        totalPages: 11,
+                        currentPage: 2,
+                        windowSize: 3,
+                        onPageChanged: function(data) {
+                            value = data.currentPage
+                            done()
+                        }
+                    })
+                );
+                var c =  $(ReactDOM.findDOMNode(component))
+                TestUtils.Simulate.click(c.find('.item__first-page-btn')[0]);
+            });
+
+            it("should have page changed callback called and return 1", function(done) {
+                expect(value).toBe(1);
+                done()
+            });
+        });
+
+        describe("Current page is 2 and last page button is clicked", function() {
+            var value;
+            beforeEach(function(done) {
+                component = TestUtils.renderIntoDocument(
+                    Pager({
+                        totalPages: 11,
+                        currentPage: 2,
+                        windowSize: 3,
+                        onPageChanged: function(data) {
+                            value = data.currentPage
+                            done()
+                        }
+                    })
+                );
+                var c =  $(ReactDOM.findDOMNode(component))
+                TestUtils.Simulate.click(c.find('.item__last-page-btn')[0]);
+            });
+
+            it("should have page changed callback called and return 11", function(done) {
+                expect(value).toBe(11);
+                done()
+            });
+        });
+    });
+
     describe("Current page is 2", function() {
         beforeEach(function() {
             component = TestUtils.renderIntoDocument(
