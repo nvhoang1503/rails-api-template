@@ -1,6 +1,7 @@
 .ui.containter
-  = react_component('Menu')
+  = react_component('Menu', {user_session: {logout_path: destroy_admin_session_path}})
 .ui.container.segment.main-container
-  h1 Admin::Home#index
+  h1 Admins
+  = react_component('AdminIndex', {admins: [{id: "1", email: "test@test.com", created_at: "1/1/1"}]})
 
 
