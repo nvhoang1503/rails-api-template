@@ -5,5 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Admin.create!([{email:"admin@test.com", password: "1234qwer" }])
+Admin.destroy_all
+(1..50).to_a.each do |index|
+  Admin.create!([{email:"admin#{index}@test.com", password: "1234qwer" }])
+end
 

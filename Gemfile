@@ -65,6 +65,9 @@ gem 'premailer-rails', "~> 1.9.1"
 gem 'js-routes'
 gem 'figaro'  # to get the configration from applycation.yml
 
+#Paging
+gem 'kaminari', '~> 0.14'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
