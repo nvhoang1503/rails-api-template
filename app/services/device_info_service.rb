@@ -1,26 +1,30 @@
 class DeviceInfoService < BaseService
 
-  # def initialize(device_info, params = {})
-  #   @device_info = device_info
-  #   @params = params
-  # end
-
   def self.anonymize(params, headers)
     DeviceInfo.anonymize(params, headers)
   end
 
-  # def anonymize
-  #   device_info = DeviceInfo.new params
-  #   device_info.authentication_token = generate_authentication_token
-  #   device_info.save
-  #   device_info
-  # end
+  def self.play_in(device_id)
+    DeviceInfo.play_in(device_id)
+  end
 
+  def self.device_checking(secure_auth_key, device_type)
+    flag = false
+    puts "==== device_checking  DEV_SECURE_AUTH_KEY: ",ENV["DEV_SECURE_AUTH_KEY"]
+    if device_type.present?
+      if device_type.downcase == 'android' && secure_auth_key == ENV["ANDROID_SECURE_AUTH_KEY"]
+        flag = true
+      elsif device_type.downcase == 'ios' && secure_auth_key == ENV["IOS_SECURE_AUTH_KEY"]
+        flag = true
+      elsif device_type.downcase == 'dev' && secure_auth_key == ENV["DEV_SECURE_AUTH_KEY"]
+        flag = true
+      end
+    end
+    flag  
+  end
 
-  # def generate_authentication_token
-  #   SecureRandom.hex(50)
-  # end
-
-
+  def self.generate_authentication_token
+    SecureRandom.hex(30)
+  end
 
 end

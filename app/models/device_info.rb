@@ -1,6 +1,7 @@
 class DeviceInfo < ApplicationRecord
 
   include DeviceInfoBase
+
 end
 
 # == Schema Information
@@ -22,12 +23,12 @@ end
 #  locale               :string           default("en")
 #  is_playing           :boolean
 #  play_in_count        :integer          default(0), not null
-#  current_play_in_at   :datetime
 #  last_play_off_at     :datetime
-#  current_play_in_ip   :inet
 #  last_play_in_ip      :inet
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  last_play_in_at      :datetime
+#  last_play_off_ip     :inet
 #
 # Indexes
 #

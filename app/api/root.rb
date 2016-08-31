@@ -82,7 +82,7 @@ module API
       end
 
       def is_valid_device
-        if (headers['Device-Id'].present? && headers['Device-Token'].present? && headers['Device-Type'].present? && headers['Accept-Language'].present?)
+        if (headers['Api-Key'].present? && headers['Device-Id'].present? && headers['Device-Token'].present? && headers['Device-Type'].present? && headers['Accept-Language'].present?)
           true
         else
           error!({:status  => 401, :message => "User Authorization"}, 201)

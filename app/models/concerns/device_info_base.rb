@@ -6,31 +6,27 @@ module DeviceInfoBase
     # include Devise::Controllers::UrlHelpers
   end
 
+  def play_off
+    authentication_token = DeviceInfoService.generate_authentication_token
+    self.update_attributes( 
+                          :authentication_token => authentication_token,
+                          :is_playing => false
+                        )
+  end
+
   module ClassMethods
 
     def play_in(device_id)
       device_info = self.where(:device_id => device_id).try(:first)
       if device_info
         play_in_count = device_info.play_in_count + 1
-        authentication_token = generate_authentication_token
+        authentication_token = DeviceInfoService.generate_authentication_token
 
         device_info.update_attributes(:play_in_count => play_in_count, 
                                       :authentication_token => authentication_token,
                                       :is_playing => true
                                       )
-        return device_info
-      end
-      nil
-    end
 
-    def play_off(authentication_token)
-      device_info = with_authentication_token(authentication_token)
-      if device_info
-        authentication_token = generate_authentication_token
-        device_info.update_attributes( 
-                                      :authentication_token => authentication_token,
-                                      :is_playing => false
-                                      )
         return device_info
       end
       nil
@@ -53,7 +49,17 @@ module DeviceInfoBase
 
     # # Create new device info
     def anonymize(params, headers)
-      puts "=========== device info base: anonymize ===== params  ", params
+      device_info = self.find_by_device_id(headers['Device-Id'])
+      if device_info
+        device_info = update_device_info(device_info, params, headers)
+      else
+        device_info = create_device_info(params, headers)
+      end
+      device_info  
+    end
+
+    def create_device_info(params, headers)
+      puts "=====  create new device info ====="
       device_info = self.new(
                               device_type: headers['Device-Type'],
                               device_name: headers['Device-Name'],
@@ -68,48 +74,32 @@ module DeviceInfoBase
                             )
       device_info.is_playing = true
       device_info.play_in_count = 1
-      device_info.current_play_in_at = DateTime.now
-      device_info.authentication_token = generate_authentication_token
+      device_info.last_play_in_at = DateTime.now
+      device_info.authentication_token = DeviceInfoService.generate_authentication_token
       device_info.save
       device_info
     end
 
-    # Update device info for device tracking
-    def update_device_info(device_info)
-      if self.class.name == DeviceInfo.name
-        raise Exceptions::CommonExceptions::Invalid.new(message: "The system das not permisson to get device info", is_system_error: true)
+    # def update_device_info(device_info)
+    def update_device_info(device_info, params, headers = {})
+      puts "=====  Update device info ====="
+      info_update = {}
+      info_update = info_update.merge(:user_id      => params[:user_id])            if device_info.user_id      != params[:user_id]
+      info_update = info_update.merge(:device_type  => headers['Device-Type'])      if device_info.device_type  != headers['Device-Type']
+      info_update = info_update.merge(:device_name  => headers['Device-Name'])      if device_info.device_name  != headers['Device-Name']
+      info_update = info_update.merge(:device_id    => headers['Device-Id'])        if device_info.device_id    != headers['Device-Id']
+      info_update = info_update.merge(:os_version   => headers['Os-Version'])       if device_info.os_version   != headers['Os-Version']
+      info_update = info_update.merge(:screen_dpi   => headers['Screen-Dpi'])       if device_info.screen_dpi   != headers['Screen-Dpi']
+      info_update = info_update.merge(:app_version  => headers['App-Version'])      if device_info.app_version  != headers['App-Version']
+      info_update = info_update.merge(:app_name     => headers['App-Name'])         if device_info.app_name     != headers['App-Name']
+      info_update = info_update.merge(:locale       => headers['Accept-Language'])  if device_info.locale       != headers['Accept-Language']
+      
+      if info_update.size > 0
+        puts "=====  Update device info 111====="
+        device_info.authentication_token = DeviceInfoService.generate_authentication_token
+        device_info.update_attributes(info_update)
       end
-
-      existed_device_info = DeviceInfo.find_by_device_id(device_info.device_info)
-
-      if existed_device_info
-        existed_device_info.user_id       = device_info.user_id       if device_info.user_id
-        existed_device_info.device_type   = device_info.device_type   if device_info.device_type
-        existed_device_info.device_name   = device_info.device_name   if device_info.device_name
-        existed_device_info.device_token  = device_info.device_token  if device_info.device_token
-        existed_device_info.os_version    = device_info.os_version    if device_info.os_version
-        existed_device_info.screen_dpi    = device_info.screen_dpi    if device_info.screen_dpi
-        existed_device_info.app_version   = device_info.app_version   if device_info.app_version
-        existed_device_info.is_playing    = device_info.is_playing    if device_info.is_playing
-        existed_device_info.app_name      = device_info.app_name      if device_info.app_name
-        existed_device_info.country_code  = device_info.country_code  if device_info.country_code
-        existed_device_info.locale        = device_info.locale        if device_info.locale
-
-        existed_device_info.save
-      else
-        raise Exceptions::CommonExceptions::Invalid.new(message: "Can not update the device info", is_system_error: true)
-      end
-      existed_device_info
-    end
-
-    def update_play_in_count(device_info)
-      device_info.update_attribute("play_in_count", device_info.play_in_count + 1)
-    end
-
-    
-     
-    def generate_authentication_token
-      SecureRandom.hex(50)
+      device_info
     end
 
   end
