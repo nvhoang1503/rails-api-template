@@ -22,8 +22,29 @@ window.Menu = React.createClass
 
   render: ->
     div className: 'ui menu', ref: 'menu',
-      a className: 'item', 'Test 1'
-      div className: 'ui dropdown item right', tabIndex: '0', 'Account',
-        i className: 'dropdown icon'
-        div className: 'menu transition hidden', tabIndex: '-1',
-          a className: 'item', href: @props.user_session.logout_path, 'data-method': 'delete', 'Sign out'
+      MenuItem href: Routes.admin_home_dashboard_path(), method: 'get', remote: true, "Dashboard"
+      MenuDropDown {text: "Accounts", align: 'left'},
+        MenuItem href: Routes.admin_home_admins_path(), method: 'get', remote: true, "Admins"
+      MenuDropDown {text: "User", align: 'right'},
+        MenuItem href: @props.user_session.logout_path, method: 'delete', 'Sign out'
+
+MenuDropDown = React.createFactory React.createClass
+  getDefaultProps: ->
+    {
+      text: 'untitled'
+      align: ''
+    }
+  render: ->
+    div className: 'ui dropdown item '+ @props.align, tabIndex: '0', @props.text,
+      i className: 'dropdown icon'
+      div className: 'menu transition hidden', tabIndex: '-1', @props.children
+
+MenuItem = React.createFactory React.createClass
+  getDefaultProps: ->
+    {
+      href: '#',
+      method: ''
+      remote: 'false'
+    }
+  render: ->
+    a className: 'item', href: @props.href, 'data-method': @props.method, 'data-remote': @props.remote, @props.children

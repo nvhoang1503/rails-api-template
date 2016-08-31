@@ -1,12 +1,8 @@
 .ui.containter
   = react_component('Menu', {user_session: {logout_path: destroy_admin_session_path}})
 .ui.container.segment.main-container
-  h1 Admins
-  = react_component('AdminIndex', {admins: []})
+  = render 'dashboard'
 
 
-- content_for :js
-  javascript:
-    var a = new SATV.Admin.AdminsService
-    a.fetchAdmins(1)
+
 

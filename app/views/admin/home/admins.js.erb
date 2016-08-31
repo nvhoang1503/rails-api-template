@@ -1,0 +1,5 @@
+$(".main-container").fadeIn().html("<%= escape_javascript(render 'admin/home/admins') %>");
+ReactRailsUJS.mountComponents()
+var adminsService = new SATV.Admin.AdminsService
+adminsService.fetchAdmins(1)
+
