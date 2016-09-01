@@ -10,6 +10,11 @@ window.AdminIndex = React.createClass
   componentWillMount: ->
     AdminIndexStore.listen(@onChange)
     AdminIndexActions.initData(@props)
+    RouterStore.listen(@onUrlChange)
+
+    page = RouterStore.getRouteData().query.page
+    adminsService = new SATV.Admin.AdminsService
+    adminsService.fetchAdmins(page)
 
   componentWillUnmount: ->
     AdminIndexStore.unlisten(@onChange)
@@ -17,9 +22,21 @@ window.AdminIndex = React.createClass
   onChange: (state)->
     @setState(state)
 
-  onPageChanged: (data)->
+  onUrlChange: (state)->
     adminService = new SATV.Admin.AdminsService
-    adminService.fetchAdmins(data.currentPage)
+    adminService.fetchAdmins(state.routeData.query.page || 1)
+
+
+  onPageChanged: (data)->
+    query = RouterStore.getRouteData().query
+    pathname = RouterStore.getRouteData().pathname
+    state = RouterStore.getRouteData().state
+
+    RouterStore.getMainRouter().push({
+      query: $.extend({}, query, {page: data.currentPage}),
+      pathname: pathname,
+      state: state
+    })
 
   render: ->
     table className: 'ui celled table',
@@ -29,7 +46,7 @@ window.AdminIndex = React.createClass
           th {}, 'Email'
           th {}, 'Created at'
       tbody {},
-        _.map @props.admins, (admin) =>  
+        _.map @state.admins, (admin) =>  
           tr {key: admin.id},
             td {}, admin.id
             td {}, admin.email

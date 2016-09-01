@@ -16,6 +16,7 @@
 //= require js-routes
 //= require react
 //= require react_ujs
+//= require ReactRouter
 //= require components
 
 // Loads all Semantic javascripts

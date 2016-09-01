@@ -13,8 +13,8 @@ class AdminIndexStore
     )
 
   onInitData: (props)->
-    @admins = props.admins
-    @pageInfo = props.pageInfo
+    @admins = props.admins || []
+    @pageInfo = props.pageInfo || {}
 
   onUpdateAdmins: (admins) ->
     @admins.splice(0, @admins.length)

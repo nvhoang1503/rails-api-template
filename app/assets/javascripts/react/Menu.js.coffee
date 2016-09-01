@@ -1,4 +1,6 @@
 { div, a, i, span, label, input  } = React.DOM
+Link = React.createFactory ReactRouter.Link
+
 
 window.Menu = React.createClass
   getInitialState: ->
@@ -22,9 +24,9 @@ window.Menu = React.createClass
 
   render: ->
     div className: 'ui menu', ref: 'menu',
-      MenuItem href: Routes.admin_home_dashboard_path(), method: 'get', remote: true, "Dashboard"
+      MenuReactItem href: '/', "Dashboard"
       MenuDropDown {text: "Accounts", align: 'left'},
-        MenuItem href: Routes.admin_home_admins_path(), method: 'get', remote: true, "Admins"
+        MenuReactItem href: '/admins', "Admins"
       MenuDropDown {text: "User", align: 'right'},
         MenuItem href: @props.user_session.logout_path, method: 'delete', 'Sign out'
 
@@ -38,6 +40,24 @@ MenuDropDown = React.createFactory React.createClass
     div className: 'ui dropdown item '+ @props.align, tabIndex: '0', @props.text,
       i className: 'dropdown icon'
       div className: 'menu transition hidden', tabIndex: '-1', @props.children
+
+MenuReactItem = React.createFactory React.createClass
+  getDefaultProps: ->
+    {
+      href: '#'
+    }
+
+  onClick: (event)->
+    event.preventDefault()
+
+    RouterStore.getMainRouter().push({
+      query: {},
+      pathname: @props.href
+    })
+    
+  render: ->
+    # Link className: 'item', to: @props.href, @props.children
+    a className: 'item', href: @props.href, onClick: @onClick, @props.children
 
 MenuItem = React.createFactory React.createClass
   getDefaultProps: ->
