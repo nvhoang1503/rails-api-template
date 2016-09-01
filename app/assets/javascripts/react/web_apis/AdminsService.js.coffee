@@ -8,5 +8,5 @@ namespace 'SATV.Admin', (exports) ->
           AdminIndexActions.updateAdmins(data.data)
           AdminIndexActions.updatePageInfo(data.pageInfo)
         error: (data)->
-          alert "Loading error"
+          console.log("Request data error")
 
