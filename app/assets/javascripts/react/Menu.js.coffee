@@ -5,18 +5,26 @@ Link = React.createFactory ReactRouter.Link
 window.Menu = React.createClass
   getInitialState: ->
     {
-      user_session: {}
+      userSession: {},
+      currentPathname: "/"
     }
 
   componentWillMount: ->
     MenuStore.listen(@onChange)
     MenuActions.initData(@props)
 
+    RouterStore.listen(@onUrlChange)
+
   componentWillUnmount: ->
     MenuStore.unlisten(@onChange)
 
+    RouterStore.unlisten(@onUrlChange)
+
   onChange: (state)->
     @setState(state)
+
+  onUrlChange: (state)->
+    @setState($.extend({}, @state, {currentPathname: state.routeData.pathname}))
 
   componentDidMount: ->
     menuTag = $(this.refs.menu)
@@ -24,11 +32,11 @@ window.Menu = React.createClass
 
   render: ->
     div className: 'ui menu', ref: 'menu',
-      MenuReactItem href: '/', "Dashboard"
+      MenuReactItem {href: '/', currentPathname: @state.currentPathname}, "Dashboard"
       MenuDropDown {text: "Accounts", align: 'left'},
-        MenuReactItem href: '/admins', "Admins"
+        MenuReactItem {href: '/admins', currentPathname: @state.currentPathname}, "Admins"
       MenuDropDown {text: "User", align: 'right'},
-        MenuItem href: @props.user_session.logout_path, method: 'delete', 'Sign out'
+        MenuItem href: @props.userSession.logoutPath, method: 'delete', 'Sign out'
 
 MenuDropDown = React.createFactory React.createClass
   getDefaultProps: ->
@@ -42,9 +50,27 @@ MenuDropDown = React.createFactory React.createClass
       div className: 'menu transition hidden', tabIndex: '-1', @props.children
 
 MenuReactItem = React.createFactory React.createClass
+  getInitialState: ->
+    {
+      activeClass: ""
+    }
+
+  componentWillMount: ->
+    if @props.href == @props.currentPathname
+      @state.activeClass = "active"
+    else
+      @state.activeClass = ""
+
+  componentWillUpdate: (nextProps, nextState)->
+    if @props.href == nextProps.currentPathname
+      @state.activeClass = "active"
+    else
+      @state.activeClass = ""
+
   getDefaultProps: ->
     {
-      href: '#'
+      href: '#',
+      currentPathname: "/"
     }
 
   onClick: (event)->
@@ -56,8 +82,7 @@ MenuReactItem = React.createFactory React.createClass
     })
     
   render: ->
-    # Link className: 'item', to: @props.href, @props.children
-    a className: 'item', href: @props.href, onClick: @onClick, @props.children
+    a className: 'item ' + @state.activeClass, href: @props.href, onClick: @onClick, @props.children
 
 MenuItem = React.createFactory React.createClass
   getDefaultProps: ->
