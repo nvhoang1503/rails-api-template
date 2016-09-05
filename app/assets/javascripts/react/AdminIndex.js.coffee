@@ -39,22 +39,23 @@ window.AdminIndex = React.createClass
     })
 
   render: ->
-    table className: 'ui celled table',
-      thead {},
-        tr {},
-          th {}, 'Id'
-          th {}, 'Email'
-          th {}, 'Created at'
-      tbody {},
-        _.map @state.admins, (admin) =>  
-          tr {key: admin.id},
-            td {}, admin.id
-            td {}, admin.email
-            td {}, admin.created_at
-      tfoot {},
-        tr {},
-          th colSpan: '3',
-            Pager($.extend({}, @state.pageInfo, {onPageChanged: @onPageChanged}))
+    div className: 'admin-page',
+      table className: 'ui celled table',
+        thead {},
+          tr {},
+            th {}, 'Id'
+            th {}, 'Email'
+            th {}, 'Created at'
+        tbody {},
+          _.map @state.admins, (admin) =>  
+            tr {key: admin.id},
+              td {}, admin.id
+              td {}, admin.email
+              td {}, admin.created_at
+        tfoot {},
+          tr {},
+            th colSpan: '3',
+              Pager($.extend({}, @state.pageInfo, {onPageChanged: @onPageChanged}))
 
 window.Pager = React.createFactory React.createClass
   getDefaultProps: ->

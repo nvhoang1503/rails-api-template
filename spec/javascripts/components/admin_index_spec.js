@@ -4,6 +4,7 @@ describe("AdminIndex", function() {
     var component;
     describe("renders Index", function() {
         beforeEach(function() {
+            jasmine.Ajax.install();
             component = TestUtils.renderIntoDocument(
                 React.createElement(AdminIndex, {
                     admins: [{
@@ -18,6 +19,10 @@ describe("AdminIndex", function() {
         it("should have admin table rendered", function() {
             var c =  $(ReactDOM.findDOMNode(component))
             expect(c.find("td")[0].textContent).toContain("1")
+        });
+
+        afterEach(function() {
+            jasmine.Ajax.uninstall();
         });
     });
 });
