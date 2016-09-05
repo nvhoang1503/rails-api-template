@@ -1,12 +1,45 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-Admin.destroy_all
-(1..50).to_a.each do |index|
-  Admin.create!([{email:"admin#{index}@test.com", password: "1234qwer" }])
-end
+puts "============== Create addmin account ============"
 
+admins = [
+  # admin
+  {
+    email: 'admin@satv.com',
+    password: '1234qwer'
+  },
+  {
+    email: 'quan@supperawesome.tv',
+    password: '1234qwer'
+  },
+  {
+    email: 'hoang.nguyen@supperawesome.tv',
+    password: '1234qwer'
+  },
+  {
+    email: 'wilber.nguyen@superawesome.tv',
+    password: '1234qwer'
+  },
+  {
+    email: 'huu.ngo@supperawesome.tv',
+    password: '1234qwer'
+  },
+  {
+    email: 'phuong.nguyen@superawesome.tv',
+    password: '1234qwer'
+  },
+  {
+    email: 'tung.an@superawesome.tv',
+    password: '1234qwer'
+  }
+]
+
+# Admin.destroy_all
+
+admins.each do |admin|
+  count = Admin.where(email: admin[:email]).count
+  Admin.create(admin) if count == 0
+end
+# if Rails.env == "development"
+# end
+  
+
+puts "============== Finished to create addmin account ============"

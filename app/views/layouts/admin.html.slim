@@ -14,11 +14,11 @@ html
 
   body.admin
     #header
-      = render 'shared/header'
-    .container  
+      = render 'shared/admin/header'
+    #page-container  
       = yield
     #footer
-      = render 'shared/footer'
+      = render 'shared/admin/footer'
   = yield(:js)
 
 

@@ -1,4 +1,15 @@
 GIT
+  remote: git://github.com/audionerd/draper.git
+  revision: e816e0e5876b76c648c0928f1c3f2aa2c7a3d1f2
+  branch: rails5
+  specs:
+    draper (2.1.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
+
+GIT
   remote: git://github.com/dangnm/grape-swagger-ui.git
   revision: e4e453bfde0354794753b730fee5c0413b585222
   specs:
@@ -114,11 +125,6 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
-    draper (2.1.0)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      request_store (~> 1.0)
     equalizer (0.0.11)
     erubis (2.7.0)
     excon (0.52.0)
@@ -498,7 +504,7 @@ DEPENDENCIES
   carrierwave (~> 0.11.0)
   coffee-rails (~> 4.2)
   devise (~> 4.2.0)
-  draper
+  draper!
   factory_girl_rails (~> 4.5.0)
   faker (~> 1.5.0)
   figaro

@@ -69,7 +69,8 @@ gem 'figaro'  # to get the configration from applycation.yml
 gem 'kaminari', '~> 0.14'
 
 # Decorator
-gem 'draper'
+# gem 'draper'
+gem 'draper', github: 'audionerd/draper', branch: 'rails5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

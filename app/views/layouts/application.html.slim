@@ -12,8 +12,13 @@ html
     = favicon_link_tag 'common/favicon.ico'
     = csrf_meta_tags
 
-  body
-    = yield
+  body.web-app
+    #header
+      = render 'shared/webapp/header'
+    #page-container  
+      = yield
+    #footer
+      = render 'shared/webapp/footer'
   = yield(:js)
 
 
