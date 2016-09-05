@@ -51,4 +51,34 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+
+
+  config.assets.raise_runtime_errors = true
+  config.assets.compile = true
+  config.assets.precompile += ["swagger_ui_print.css", "swagger_ui_screen.css", "swagger_ui.js"]
+
+  config.assets.initialize_on_precompile = true
+
+  # Raises error for missing translations
+  # config.action_view.raise_on_missing_translations = true
+   config.action_mailer.asset_host = 'http://localhost:3000'
+   config.action_controller.asset_host = ENV['MAILER_HOST']
+   config.action_mailer.delivery_method = :smtp
+   # config.action_mailer.delivery_method = :test
+  # config.action_mailer.delivery_method = :letter_opener_web
+
+  config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
+  config.action_mailer.smtp_settings = {
+    :address              => ENV['MAILER_ADDRESS'],
+    :port                 => ENV['MAILER_PORT'],
+    :user_name            => ENV['MAILER_USERNAME'],
+    :password             => ENV['MAILER_PASSWORD']
+  }
+
+  config.assets.initialize_on_precompile = true
+  config.i18n.fallbacks = true
+  config.public_file_server.enabled = true
+
+
 end
