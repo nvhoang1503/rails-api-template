@@ -8,7 +8,7 @@ class AdminIndexStore
 
     @exportPublicMethods(
       {
-        getAdmin: @getAdmins
+        getAdmins: @getAdmins
       }
     )
 

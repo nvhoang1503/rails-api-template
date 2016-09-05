@@ -11,6 +11,7 @@ namespace 'SATV.Admin', (exports) ->
     componentWillMount: ->
       SATV.Admin.AdminIndexStore.listen(@onChange)
       SATV.Admin.AdminIndexActions.initData(@props)
+
       SATV.Admin.RouterStore.listen(@onUrlChange)
   
       page = SATV.Admin.RouterStore.getRouteData().query.page
@@ -19,13 +20,15 @@ namespace 'SATV.Admin', (exports) ->
   
     componentWillUnmount: ->
       SATV.Admin.AdminIndexStore.unlisten(@onChange)
+      SATV.Admin.RouterStore.unlisten(@onUrlChange)
   
     onChange: (state)->
       @setState(state)
   
     onUrlChange: (state)->
-      adminService = new SATV.Admin.AdminsService
-      adminService.fetchAdmins(state.routeData.query.page || 1)
+      if state.routeData.pathname == "/admins"
+        adminService = new SATV.Admin.AdminsService
+        adminService.fetchAdmins(state.routeData.query.page || 1)
   
   
     onPageChanged: (data)->
