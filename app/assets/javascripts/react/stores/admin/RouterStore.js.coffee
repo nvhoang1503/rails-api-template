@@ -56,7 +56,5 @@ class RouterStore
   getState: ()->
     @getState().routeData.state
 
-window.RouterStore = alt.createStore(RouterStore)
-
 namespace 'SATV.Admin', (exports) ->
   exports.RouterStore = alt.createStore(RouterStore)
