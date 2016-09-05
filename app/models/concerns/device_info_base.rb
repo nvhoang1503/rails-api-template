@@ -10,23 +10,26 @@ module DeviceInfoBase
     authentication_token = DeviceInfoService.generate_authentication_token
     self.update_attributes( 
                           :authentication_token => authentication_token,
-                          :is_playing => false
+                          :is_playing => false,
+                          :last_play_off_at => DateTime.now
                         )
   end
 
   module ClassMethods
 
-    def play_in(device_id)
+    def play_in(device_id, headers)
       device_info = self.where(:device_id => device_id).try(:first)
       if device_info
         play_in_count = device_info.play_in_count + 1
         authentication_token = DeviceInfoService.generate_authentication_token
 
-        device_info.update_attributes(:play_in_count => play_in_count, 
-                                      :authentication_token => authentication_token,
-                                      :is_playing => true
-                                      )
-
+        data_changed = {
+                    :play_in_count => play_in_count, 
+                    :authentication_token => authentication_token,
+                    :is_playing => true,
+                    :last_play_in_at => DateTime.now
+                  }
+        device_info = update_device_info(device_info, data_changed, headers)
         return device_info
       end
       nil
@@ -59,7 +62,6 @@ module DeviceInfoBase
     end
 
     def create_device_info(params, headers)
-      puts "=====  create new device info ====="
       device_info = self.new(
                               device_type: headers['Device-Type'],
                               device_name: headers['Device-Name'],
@@ -82,7 +84,6 @@ module DeviceInfoBase
 
     # def update_device_info(device_info)
     def update_device_info(device_info, params, headers = {})
-      puts "=====  Update device info ====="
       info_update = {}
       info_update = info_update.merge(:user_id      => params[:user_id])            if device_info.user_id      != params[:user_id]
       info_update = info_update.merge(:device_type  => headers['Device-Type'])      if device_info.device_type  != headers['Device-Type']
@@ -94,8 +95,10 @@ module DeviceInfoBase
       info_update = info_update.merge(:app_name     => headers['App-Name'])         if device_info.app_name     != headers['App-Name']
       info_update = info_update.merge(:locale       => headers['Accept-Language'])  if device_info.locale       != headers['Accept-Language']
       
+      if params
+        info_update = info_update.merge(params)
+      end
       if info_update.size > 0
-        puts "=====  Update device info 111====="
         device_info.authentication_token = DeviceInfoService.generate_authentication_token
         device_info.update_attributes(info_update)
       end
