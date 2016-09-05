@@ -1,12 +1,12 @@
 var TestUtils = React.addons.TestUtils;
 
-describe("AdminIndex", function() {
+describe("SATV.Admin.AdminIndex", function() {
     var component;
     describe("renders Index", function() {
         beforeEach(function() {
             jasmine.Ajax.install();
             component = TestUtils.renderIntoDocument(
-                React.createElement(AdminIndex, {
+                React.createElement(SATV.Admin.AdminIndex, {
                     admins: [{
                         id: "1",
                         email: "test@test.com",

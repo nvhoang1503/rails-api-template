@@ -2,7 +2,7 @@ class MenuStore
   @displayName: 'MenuStore'
 
   constructor: ->
-    @bindActions(MenuActions)
+    @bindActions(SATV.Admin.MenuActions)
     @userSession = {}
 
     @exportPublicMethods(
@@ -18,4 +18,5 @@ class MenuStore
   getUserSession: ()->
     @getState().userSession
 
-window.MenuStore = alt.createStore(MenuStore)
+namespace 'SATV.Admin', (exports) ->
+  exports.MenuStore = alt.createStore(MenuStore)
