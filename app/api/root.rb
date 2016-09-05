@@ -26,7 +26,7 @@ module API
 
     before do
       set_locale
-      devive_authenticate
+      # devive_authenticate
     end
 
     after do
@@ -89,13 +89,13 @@ module API
         end
       end
 
-      def devive_authenticate
-        if set_access_token
-          current_device_info
-        else
-          nil
-        end
-      end
+      # def devive_authenticate
+      #   if set_access_token
+      #     current_device_info
+      #   else
+      #     nil
+      #   end
+      # end
 
       def set_access_token
         params[:authentication_token] ||= headers['Authorization']  # Should be headers['Authorization']

@@ -8,20 +8,29 @@ class DeviceInfoService < BaseService
     DeviceInfo.play_in(device_id, headers)
   end
 
-  def self.device_checking(device_type)
-    flag = false
-    puts "==== device_checking  DEV_SECURE_AUTH_KEY: ",ENV["DEV_SECURE_AUTH_KEY"]
-    if device_type.present?
-      flag = true
-      # if device_type.downcase == 'android' 
-      #   flag = true
-      # elsif device_type.downcase == 'ios' 
-      #   flag = true
-      # elsif device_type.downcase == 'dev'
-      #   flag = true
-      # end
+  def self.device_checking(headers)
+    flag = true
+    errors = []
+    if headers['Device-Type'].present? == false
+      flag = false
+      errors << "Missing Device Type"
     end
-    flag  
+    if headers['Device-Id'].present? == false
+      flag = false
+      errors << "Missing Device ID"
+    end
+    if headers['Device-Name'].present? == false
+      flag = false
+      errors << "Missing Device Name"
+    end
+    if headers['Device-Token'].present? == false
+      flag = false 
+      errors << "Missing Device Token"
+    end  
+    result = {
+                status: flag,
+                errors: errors
+              }
   end
 
   # def self.device_checking(secure_auth_key, device_type)

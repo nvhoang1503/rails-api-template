@@ -17,7 +17,8 @@ module DeviceInfoBase
 
   module ClassMethods
 
-    def play_in(device_id, headers)
+    def create_new_session(headers)
+      device_id = headers['Device-Id']
       device_info = self.where(:device_id => device_id).try(:first)
       if device_info
         play_in_count = device_info.play_in_count + 1
