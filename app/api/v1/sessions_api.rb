@@ -39,8 +39,8 @@ module API
         end
         delete "reset" do 
           device_info_authenticate!
-          current_device_info.play_off
-          API::Entities::V1::DeviceInfoEntity.represent(nil).merge(status: 200, message: "The device has been off")
+          current_device_info.reset_session
+          API::Entities::V1::DeviceInfoEntity.represent(nil).merge(status: 200, message: "The device has been played off")
         end
       end
     end

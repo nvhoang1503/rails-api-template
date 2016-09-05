@@ -6,7 +6,7 @@ module DeviceInfoBase
     # include Devise::Controllers::UrlHelpers
   end
 
-  def play_off
+  def reset_session
     authentication_token = DeviceInfoService.generate_authentication_token
     self.update_attributes( 
                           :authentication_token => authentication_token,
