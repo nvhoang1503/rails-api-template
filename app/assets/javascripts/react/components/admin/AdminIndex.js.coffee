@@ -38,9 +38,17 @@ namespace 'SATV.Admin', (exports) ->
         pathname: pathname,
         state: state
       })
+
+    onNew: ->
+      SATV.Admin.RouterStore.getMainRouter().push({
+        pathname: 'admins/new'
+      })
   
     render: ->
-      div className: 'admin-page',
+      div className: 'admin-page-index',
+        div className: 'ui right aligned grid action-box',
+          div className: 'sixteen wide column',
+            div className: 'ui button action-box__new-btn', onClick: @onNew, 'New admin'
         table className: 'ui celled table',
           thead {},
             tr {},

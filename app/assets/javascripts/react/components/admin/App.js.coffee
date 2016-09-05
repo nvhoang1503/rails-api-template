@@ -14,4 +14,5 @@ namespace 'SATV.Admin', (exports) ->
           IndexRoute component: SATV.Admin.Dashboard
           Route path: '/dashboard', component: SATV.Admin.Dashboard
           Route path: '/admins', component: ReactRouter.withRouter(SATV.Admin.AdminIndex)
+          Route path: '/admins/new', component: SATV.Admin.AdminNew
 
