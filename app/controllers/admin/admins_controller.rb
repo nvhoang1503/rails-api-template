@@ -32,16 +32,19 @@ class Admin::AdminsController < ApplicationController
         }
       end
     else
-      error_message = @admin.errors.full_messages.join(". ") if @admin.errors.messages.values
+      if @admin.errors.messages.values
+        messages = @admin.errors.full_messages.map do |message|
+          {
+            content: message,
+            type: "error"
+          }
+        end
+      end
+
       respond_to do |format|
         format.json  {
           render :json => {
-            messages: [
-              {
-                content: error_message,
-                type: "error"
-              }
-            ]
+            messages: messages
           }
         }
       end

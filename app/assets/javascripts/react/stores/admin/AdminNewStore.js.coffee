@@ -19,8 +19,8 @@ class AdminNewStore
     @admin = props
 
   onUpdateMessage: (props)->
-    @messages = _.map props.messages, (message) =>  
-      $.extend({}, message,  {id: _.now()} )
+    @messages = _.map props.messages, (message, index) =>  
+      $.extend({}, message,  {id: index} )
 
   getAdmin: ()->
     @getState().admin
