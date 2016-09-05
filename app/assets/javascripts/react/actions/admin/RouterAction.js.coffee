@@ -9,4 +9,5 @@ class RouterActions
       'updateMainRouter'
     )
 
-window.RouterActions = alt.createActions(RouterActions)
+namespace 'SATV.Admin', (exports) ->
+  exports.RouterActions = alt.createActions(RouterActions)

@@ -2,7 +2,7 @@ class RouterStore
   @displayName: 'RouterStore'
 
   constructor: ->
-    @bindActions(RouterActions)
+    @bindActions(SATV.Admin.RouterActions)
     @routeData = {
       query: {},
       pathname: {},
@@ -57,3 +57,6 @@ class RouterStore
     @getState().routeData.state
 
 window.RouterStore = alt.createStore(RouterStore)
+
+namespace 'SATV.Admin', (exports) ->
+  exports.RouterStore = alt.createStore(RouterStore)

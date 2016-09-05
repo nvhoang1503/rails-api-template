@@ -6,4 +6,5 @@ class AdminIndexActions
       'updatePageInfo'
     )
 
-window.AdminIndexActions = alt.createActions(AdminIndexActions)
+namespace 'SATV.Admin', (exports) ->
+  exports.AdminIndexActions = alt.createActions(AdminIndexActions)

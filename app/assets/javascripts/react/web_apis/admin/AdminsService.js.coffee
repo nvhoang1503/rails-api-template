@@ -5,8 +5,8 @@ namespace 'SATV.Admin', (exports) ->
         type: "GET"
         url: Routes.admin_admins_path(page: page)
         success: (data)->
-          AdminIndexActions.updateAdmins(data.data)
-          AdminIndexActions.updatePageInfo(data.pageInfo)
+          SATV.Admin.AdminIndexActions.updateAdmins(data.data)
+          SATV.Admin.AdminIndexActions.updatePageInfo(data.pageInfo)
         error: (data)->
           console.log("Request data error")
 

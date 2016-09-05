@@ -2,7 +2,7 @@ class AdminIndexStore
   @displayName: 'AdminIndexStore'
 
   constructor: ->
-    @bindActions(AdminIndexActions)
+    @bindActions(SATV.Admin.AdminIndexActions)
     @admins = []
     @pageInfo = {}
 
@@ -27,4 +27,6 @@ class AdminIndexStore
   getAdmins: ()->
     @getState().admins
 
-window.AdminIndexStore = alt.createStore(AdminIndexStore)
+namespace 'SATV.Admin', (exports) ->
+  exports.AdminIndexStore = alt.createStore(AdminIndexStore)
+
