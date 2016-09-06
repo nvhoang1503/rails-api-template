@@ -8,7 +8,10 @@ namespace 'SATV.Admin', (exports) ->
           admin: admin
         }
         success: (data)->
-          SATV.Admin.AdminNewActions.updateFormMessage(data)
+          SATV.Admin.RouterStore.getMainRouter().push({
+            pathname: 'admins'
+          })
+          SATV.Admin.AdminIndexActions.updateFormMessage(data)
         error: (data)->
           console.log("Request data error")
       

@@ -5,7 +5,8 @@ namespace 'SATV.Admin', (exports) ->
     getInitialState: ->
       {
         admins: [],
-        pageInfo: {}
+        pageInfo: {},
+        form_messages: []
       }
   
     componentWillMount: ->
@@ -52,6 +53,8 @@ namespace 'SATV.Admin', (exports) ->
         div className: 'ui right aligned grid action-box',
           div className: 'sixteen wide column',
             div className: 'ui button action-box__new-btn', onClick: @onNew, 'New admin'
+        _.map @state.form_messages, (message) =>  
+          FormMessageItem({key: message.id, content: message.content})
         table className: 'ui celled table',
           thead {},
             tr {},
