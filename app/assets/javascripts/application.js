@@ -10,6 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+// Naming convention
+//   - Method names are camel case and object attribute names are snake case
+//   - Variable names are cammel case
+//
+
 //= require namespace
 //= require jquery
 //= require jquery_ujs

@@ -2,7 +2,7 @@ class AdminNewActions
   constructor: ->
     @generateActions(
       'initData',
-      'updateMessage'
+      'updateFormMessage'
     )
 
   create: (admin)->

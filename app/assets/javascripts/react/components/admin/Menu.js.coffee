@@ -5,8 +5,8 @@ namespace 'SATV.Admin', (exports) ->
   exports.Menu = React.createClass
     getInitialState: ->
       {
-        userSession: {},
-        currentPathname: "/"
+        user_session: {},
+        current_path_name: "/"
       }
   
     componentWillMount: ->
@@ -24,7 +24,7 @@ namespace 'SATV.Admin', (exports) ->
       @setState(state)
   
     onUrlChange: (state)->
-      @setState($.extend({}, @state, {currentPathname: state.routeData.pathname}))
+      @setState($.extend({}, @state, {current_path_name: state.routeData.pathname}))
   
     componentDidMount: ->
       menuTag = $(this.refs.menu)
@@ -32,11 +32,11 @@ namespace 'SATV.Admin', (exports) ->
   
     render: ->
       div className: 'ui menu', ref: 'menu',
-        MenuReactItem {href: '/', currentPathname: @state.currentPathname}, "Dashboard"
+        MenuReactItem {href: '/', current_path_name: @state.current_path_name}, "Dashboard"
         MenuDropDown {text: "Accounts", align: 'left'},
-          MenuReactItem {href: '/admins', currentPathname: @state.currentPathname}, "Admins"
+          MenuReactItem {href: '/admins', current_path_name: @state.current_path_name}, "Admins"
         MenuDropDown {text: "User", align: 'right'},
-          MenuItem href: @props.userSession.logoutPath, method: 'delete', 'Sign out'
+          MenuItem href: @props.user_session.logout_path, method: 'delete', 'Sign out'
   
   MenuDropDown = React.createFactory React.createClass
     getDefaultProps: ->
@@ -56,13 +56,13 @@ namespace 'SATV.Admin', (exports) ->
       }
   
     componentWillMount: ->
-      if @props.href == @props.currentPathname
+      if @props.href == @props.current_path_name
         @state.activeClass = "active"
       else
         @state.activeClass = ""
   
     componentWillUpdate: (nextProps, nextState)->
-      if @props.href == nextProps.currentPathname
+      if @props.href == nextProps.current_path_name
         @state.activeClass = "active"
       else
         @state.activeClass = ""
@@ -70,7 +70,7 @@ namespace 'SATV.Admin', (exports) ->
     getDefaultProps: ->
       {
         href: '#',
-        currentPathname: "/"
+        current_path_name: "/"
       }
   
     onClick: (event)->

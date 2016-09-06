@@ -3,7 +3,7 @@ class MenuStore
 
   constructor: ->
     @bindActions(SATV.Admin.MenuActions)
-    @userSession = {}
+    @user_session = {}
 
     @exportPublicMethods(
       {
@@ -12,11 +12,11 @@ class MenuStore
     )
 
   onInitData: (props)->
-    @userSession = props.userSession
+    @user_session = props.user_session
 
 
   getUserSession: ()->
-    @getState().userSession
+    @getState().user_session
 
 namespace 'SATV.Admin', (exports) ->
   exports.MenuStore = alt.createStore(MenuStore)

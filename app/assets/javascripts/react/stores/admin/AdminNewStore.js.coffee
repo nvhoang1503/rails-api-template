@@ -4,7 +4,7 @@ class AdminNewStore
   constructor: ->
     @bindActions(SATV.Admin.AdminNewActions)
     @admin = {}
-    @messages = []
+    @form_messages = []
 
     @exportPublicMethods(
       {
@@ -14,12 +14,13 @@ class AdminNewStore
 
   onInitData: (props)->
     @admin = props.admin || {}
+    @form_messages = props.form_messages ||  []
 
   onCreate: (props)->
     @admin = props
 
-  onUpdateMessage: (props)->
-    @messages = _.map props.messages, (message, index) =>  
+  onUpdateFormMessage: (props)->
+    @form_messages = _.map props.messages, (message, index) =>  
       $.extend({}, message,  {id: index} )
 
   getAdmin: ()->

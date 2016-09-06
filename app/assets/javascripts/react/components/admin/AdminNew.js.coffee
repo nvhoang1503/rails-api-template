@@ -9,7 +9,7 @@ namespace 'SATV.Admin', (exports) ->
           password: '',
           password_confirmation: ''
         },
-        messages: []
+        form_messages: []
       }
 
     onSave: (e)->
@@ -32,8 +32,8 @@ namespace 'SATV.Admin', (exports) ->
 
     render: ->
       div className: 'admin-page-new',
-        _.map @state.messages, (message) =>  
-          MessageItem({key: message.id, content: message.content})
+        _.map @state.form_messages, (message) =>  
+          FormMessageItem({key: message.id, content: message.content})
         form className: 'ui form',
           div className: 'field',
             label {}, "Email"
@@ -45,15 +45,3 @@ namespace 'SATV.Admin', (exports) ->
             label {}, "Password confirmation"
             input {type: "password", name: 'password_confirmation', placeholder: "password confirmation", value: @state.admin.password_confirmation, onChange: @handleChange}
           button className: 'ui button', onClick: @onSave, "Save"
-            
-
-  MessageItem = React.createFactory React.createClass
-    getDefaultProps: ->
-      {
-        content: "",
-        type: "error",
-      }
-    render: ->
-      div className: 'ui error message',
-        p {}, @props.content
-  

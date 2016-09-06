@@ -5,6 +5,7 @@ class AdminIndexStore
     @bindActions(SATV.Admin.AdminIndexActions)
     @admins = []
     @pageInfo = {}
+    @form_messages = []
 
     @exportPublicMethods(
       {
@@ -15,6 +16,7 @@ class AdminIndexStore
   onInitData: (props)->
     @admins = props.admins || []
     @pageInfo = props.pageInfo || {}
+    @form_messages = props.form_messages ||  []
 
   onUpdateAdmins: (admins) ->
     @admins.splice(0, @admins.length)
@@ -23,6 +25,10 @@ class AdminIndexStore
 
   onUpdatePageInfo: (pageInfo) ->
     @pageInfo = pageInfo
+
+  onUpdateFormMessage: (props)->
+    @form_messages = _.map props.messages, (message, index) =>  
+      $.extend({}, message,  {id: index} )
 
   getAdmins: ()->
     @getState().admins

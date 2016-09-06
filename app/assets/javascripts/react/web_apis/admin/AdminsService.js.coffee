@@ -8,7 +8,7 @@ namespace 'SATV.Admin', (exports) ->
           admin: admin
         }
         success: (data)->
-          SATV.Admin.AdminNewActions.updateMessage(data)
+          SATV.Admin.AdminNewActions.updateFormMessage(data)
         error: (data)->
           console.log("Request data error")
       

@@ -3,7 +3,8 @@ class AdminIndexActions
     @generateActions(
       'initData',
       'updateAdmins',
-      'updatePageInfo'
+      'updatePageInfo',
+      'updateFormMessage'
     )
 
 namespace 'SATV.Admin', (exports) ->

@@ -1,3 +1,4 @@
+# Paging component for lists
 { div, table, thead, tr, th, tbody, td, tfoot, a, i } = React.DOM
 
 window.Pager = React.createFactory React.createClass
