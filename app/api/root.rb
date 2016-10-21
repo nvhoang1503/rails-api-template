@@ -52,42 +52,42 @@ module API
       end
 
 
-      # def user_authenticate!
-      def device_info_authenticate!
-        error!({:status  => 401, :message => "Device Authorization"}, 201) unless current_device_info
-      end
+      # # def user_authenticate!
+      # def device_info_authenticate!
+      #   error!({:status  => 401, :message => "Device Authorization"}, 201) unless current_device_info
+      # end
 
-      # def current_user
-      def current_device_info
-        @device_info ||= DeviceInfo.authorize params
-      end
+      # # def current_user
+      # def current_device_info
+      #   @device_info ||= DeviceInfo.authorize params
+      # end
 
-      def my_params
-        ApiParams::Hash.new(params).as_rails_params
-      end
+      # def my_params
+      #   ApiParams::Hash.new(params).as_rails_params
+      # end
 
-      def my_permitted_params
-        my_params.permit(*my_permitted_keys)
-      end
+      # def my_permitted_params
+      #   my_params.permit(*my_permitted_keys)
+      # end
 
-      def validate_device_info_headers(*header_names)
-        return if !header_names
-        header_names.each do |header_name|
-          if headers.try(:[], header_name).blank? && header_name != "Device-Token"
-            raise Exceptions::CommonExceptions::RequiredParamsMissing
-              .new(message: "#{header_name} header is missing",
-            is_system_error: true)
-          end
-        end
-      end
+      # def validate_device_info_headers(*header_names)
+      #   return if !header_names
+      #   header_names.each do |header_name|
+      #     if headers.try(:[], header_name).blank? && header_name != "Device-Token"
+      #       raise Exceptions::CommonExceptions::RequiredParamsMissing
+      #         .new(message: "#{header_name} header is missing",
+      #       is_system_error: true)
+      #     end
+      #   end
+      # end
 
-      def is_valid_device
-        if (headers['Api-Key'].present? && headers['Device-Id'].present? && headers['Device-Token'].present? && headers['Device-Type'].present? && headers['Accept-Language'].present?)
-          true
-        else
-          error!({:status  => 401, :message => "User Authorization"}, 201)
-        end
-      end
+      # def is_valid_device
+      #   if (headers['Api-Key'].present? && headers['Device-Id'].present? && headers['Device-Token'].present? && headers['Device-Type'].present? && headers['Accept-Language'].present?)
+      #     true
+      #   else
+      #     error!({:status  => 401, :message => "User Authorization"}, 201)
+      #   end
+      # end
 
       # def devive_authenticate
       #   if set_access_token
