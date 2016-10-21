@@ -1,0 +1,42 @@
+# Mailer
+  MAILER_HOST: "http://localhost:3000"
+  MAILER_ADDRESS: "smtp.xxxxx.net"
+  MAILER_PORT: "587"
+  MAILER_DOMAIN: "xxxxx.com"
+  MAILER_USERNAME: "xxxxx"
+  MAILER_PASSWORD: "xxxxx"
+
+# Redis
+  # REDIS_URL: "redis://xxxxx.com:6379"
+
+# S3
+## IAM user: 
+  S3_BUCKET_NAME: "xxxxx"
+  AWS_ACCESS_KEY_ID: "xxxxx"
+  AWS_SECRET_ACCESS_KEY: "xxxxx"
+
+# Firebase
+  FIREBASE_SECRET_KEY: "xxxxx"
+  FIREBASE_URL: 'https://tapsey-dev.xxxxx.com/chats'
+
+  SECRET_KEY_BASE: "xxxxx"
+
+
+# For push notification
+  # GMAPS_API_KEY: "xxxxx"
+  GOOGLE_GCM_KEY: "xxxxx"
+
+
+  APNS_KEY_PATH: "config/xxxxx.pem"
+  APNS__PATH: "config/xxxxx.pem" # for development server
+  
+
+  APNS_GATEWAY_URL: "gateway.sandbox.push.apple.com"
+  # APNS_GATEWAY_URL: "gateway.push.apple.com"
+
+
+# Sentry
+  SENTRY_DSN: ''
+
+#Log path
+  LOG_PATH: ''
