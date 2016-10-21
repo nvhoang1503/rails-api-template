@@ -17,7 +17,7 @@
 
 # Firebase
   FIREBASE_SECRET_KEY: "xxxxx"
-  FIREBASE_URL: 'https://tapsey-dev.xxxxx.com/chats'
+  FIREBASE_URL: 'https://xxxxx.com/your_folder'
 
   SECRET_KEY_BASE: "xxxxx"
 
